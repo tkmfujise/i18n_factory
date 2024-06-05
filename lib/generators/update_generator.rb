@@ -35,7 +35,7 @@ module I18nFactory
 
         def load_yaml_on(locale)
           self.defined_columns = {}
-          self.defined_model_name_human = ''
+          self.defined_model_name_human = nil
           path = path_for_i18n(locale)
           return unless File.exist?(path)
 

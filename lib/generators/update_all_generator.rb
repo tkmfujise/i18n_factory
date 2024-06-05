@@ -16,9 +16,9 @@ module I18nFactory
               path.match(/app\/models\/(.*)\.rb/); $1
             }.map(&:camelize)
 
-          model_names.reject do |model_name|
+          model_names.reject{|model_name|
             model_name == 'ApplicationRecord'
-          end
+          }
         end
     end
   end
