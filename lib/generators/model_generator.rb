@@ -19,7 +19,7 @@ module I18nFactory
       attr_accessor :current_locale
 
       def generate
-        locales.each do |locale|
+        I18nFactory::Locale.all.each do |locale|
           self.current_locale = locale
           template 'i18n.yml.erb', path_for_i18n(locale)
         end
@@ -34,12 +34,18 @@ module I18nFactory
           name.underscore
         end
 
-        def locales
-          [default_locale]
+        def model_name_human
+          model_name.camelize
         end
 
-        def default_locale
-          I18n.locale.to_s
+        def column_names
+          attributes.map(&:name)
+        end
+
+        def columns
+          column_names.map{|c|
+            { c => c.camelize } 
+          }.reduce(&:merge)
         end
     end
   end

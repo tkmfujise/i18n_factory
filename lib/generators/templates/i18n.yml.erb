@@ -1,9 +1,9 @@
 <%= current_locale %>:
   activerecord:
     models:
-      <%= model_name %>: <%= name %>
+      <%= model_name %>: <%= model_name_human %>
     attributes:
       <%= model_name %>:
-        <%- attributes.each do |attribute| -%>
-        <%= attribute.name %>: <%= attribute.name.camelize %>
+        <%- columns.each do |column, name| -%>
+        <%= column %>: <%= name %>
         <%- end -%>

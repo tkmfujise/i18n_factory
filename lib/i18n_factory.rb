@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 require_relative "i18n_factory/version"
+require_relative "i18n_factory/locale"
 require_relative "i18n_factory/railtie"
+require_relative 'generators/update_generator'
 
 module I18nFactory
   class Error < StandardError; end
