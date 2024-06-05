@@ -9,7 +9,7 @@ gem 'i18n_factory', group: :development
 
 ## Usage
 
-If you run `rails g model` command, a i18n file which is described for the model will be automatically created to `config/locales/xxx/<your_locale>.yml`.
+If you run `rails g model` command, a i18n file which is described for the model will be automatically created to `config/locales/<model_name>/<your_locale>.yml`.
 
 e.g.)
 
@@ -17,7 +17,7 @@ e.g.)
 $ bin/rails g model Post title content:text 
 ```
 
-will also create `config/locales/post/en.yml` after the model files.
+will also create `config/locales/post/en.yml` after the model files creation.
 
 ```yml
 en:
