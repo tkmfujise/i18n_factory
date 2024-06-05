@@ -4,12 +4,12 @@
 ## Installation
 
 ```
-gem 'i18n_factory', on: :development
+gem 'i18n_factory', group: :development
 ```
 
 ## Usage
 
-If you run `rails g model` command, a i18n file will be automatically created to config/locales/xxx/<your_locale>.yml.
+If you run `rails g model` command, a i18n file which is described for the model will be automatically created to `config/locales/xxx/<your_locale>.yml`.
 
 e.g.)
 
@@ -17,7 +17,7 @@ e.g.)
 $ bin/rails g model Post title content:text 
 ```
 
-will also create config/locales/post/en.yml after the model files.
+will also create `config/locales/post/en.yml` after the model files.
 
 ```yml
 en:
@@ -49,7 +49,7 @@ $ bin/rails g i18n_factory:update_all
 
 i18n_factory find your application locale from `I18n.locale`. 
 
-If you defined locale as `ja` in config/application.rb.
+If you defined locale as `ja` in `config/application.rb`.
 
 ```rb
 module YourApplicationName
@@ -60,7 +60,7 @@ module YourApplicationName
 end
 ```
 
-It will create i18n files as config/locales/xxx/ja.yml.
+It will create i18n files as `config/locales/xxx/ja.yml`.
 
 
 ## License
