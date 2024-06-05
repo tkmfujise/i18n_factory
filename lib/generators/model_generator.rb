@@ -18,7 +18,7 @@ module I18nFactory
       argument :attributes, type: :array, default: []
       attr_accessor :current_locale
 
-      def generate
+      def create_i18_file
         I18nFactory::Locale.all.each do |locale|
           self.current_locale = locale
           template 'i18n.yml.erb', path_for_i18n(locale)

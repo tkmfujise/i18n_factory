@@ -4,7 +4,7 @@
 ## Installation
 
 ```
-gem 'i18n-factory', on: :development
+gem 'i18n_factory', on: :development
 ```
 
 ## Usage
@@ -37,8 +37,13 @@ Even if you already created the model, you can generate i18n file.
 Please try to run the next command. It will update or create a i18n file, which got the columns from the database schema.
 
 ```
-$ bin/rails g i18n_factory:update
+$ bin/rails g i18n_factory:update ModelName
 ```
+or
+```
+$ bin/rails g i18n_factory:update_all
+```
+
 
 ### How to set locales
 

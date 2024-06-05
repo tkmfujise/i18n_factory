@@ -4,11 +4,11 @@ require 'rails/generators/named_base'
 module I18nFactory
   module Generators
     class UpdateGenerator < Rails::Generators::NamedBase
-      IGNORE_COLUMNS = %w(id created_by updated_at)
+      IGNORE_COLUMNS = %w(id created_at updated_at)
       source_root File.expand_path("templates", __dir__)
       attr_accessor :current_locale, :defined_model_name_human, :defined_columns
 
-      def generate
+      def update_i18_file
         I18nFactory::Locale.all.each do |locale|
           self.current_locale = locale
           load_yaml_on(locale)
