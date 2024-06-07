@@ -45,7 +45,7 @@ module I18nFactory
         def columns
           column_names.map{|c|
             { c => c.camelize } 
-          }.reduce(&:merge)
+          }.reduce(&:merge) || []
         end
     end
   end

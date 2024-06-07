@@ -40,6 +40,10 @@ class CreateAllTables < ActiveRecord::Migration[5.0]
       t.references :user
       t.timestamps
     end
+
+    create_table :foo_bars do |t|
+      t.string :name
+    end
   end
 end
 

@@ -25,6 +25,7 @@ RSpec.describe I18nFactory::Generators::UpdateAllGenerator, type: :generator do
     expect(executed_commands).to contain_exactly(
       ['i18n_factory:update', 'User'],
       ['i18n_factory:update', 'Article'],
+      ['i18n_factory:update', 'Foo::Bar'],
     )
   end
 end

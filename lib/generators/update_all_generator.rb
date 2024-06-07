@@ -16,7 +16,7 @@ module I18nFactory
 
       private
         def all_model_names
-          model_names = Dir["#{Rails.root.join('app/models')}/*.rb"].map{|path|
+          model_names = Dir["#{Rails.root.join('app/models')}/**/*.rb"].map{|path|
               path.match(/app\/models\/(.*)\.rb/); $1
             }.map(&:camelize)
 
