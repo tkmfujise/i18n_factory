@@ -1,5 +1,7 @@
 # I18nFactory
 
+## TODO
+* [ ] Avoid overwrite, Merge i18n yml
 
 ## Installation
 
@@ -61,6 +63,25 @@ end
 ```
 
 It will create i18n files as `config/locales/xxx/ja.yml`.
+
+
+#### How to set multiple locales
+
+Try to edit `config/environments/development.rb`
+```
+Rails.application.configure do
+  # ...
+  config.after_initialize do
+    I18nFactory.configure do |factory|
+      factory.locales = [:ja, 'zh-TW']
+    end
+  end
+end
+```
+
+It will create i18n files as 
+* `config/locales/xxx/ja.yml`
+* `config/locales/xxx/zh-TW.yml`
 
 
 ## License

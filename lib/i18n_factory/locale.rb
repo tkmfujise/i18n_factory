@@ -1,7 +1,11 @@
 module I18nFactory
   class Locale
     def self.all
-      [default] # TODO load from config
+      if I18nFactory.config.locales.any?
+        I18nFactory.config.locales
+      else
+        [default]
+      end
     end
 
     def self.default

@@ -4,7 +4,6 @@ require 'rails/generators/named_base'
 module I18nFactory
   module Generators
     class UpdateGenerator < Rails::Generators::NamedBase
-      IGNORE_COLUMNS = %w(id created_at updated_at)
       source_root File.expand_path("templates", __dir__)
       attr_accessor :current_locale, :defined_model_name_human, :defined_columns
 
@@ -46,7 +45,7 @@ module I18nFactory
         end
 
         def column_names
-          const.column_names - IGNORE_COLUMNS
+          const.column_names - I18nFactory.config.ignore_columns.map(&:to_s)
         end
 
         def columns

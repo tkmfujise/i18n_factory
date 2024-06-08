@@ -49,7 +49,43 @@ RSpec.describe Rails::Generators::ModelGenerator, type: :generator do
     end
   end
 
-  context 'if namespaced model' do
+
+  context 'if set multiple locales' do
+    before {
+      I18nFactory.configure do |factory|
+        factory.locales = [:ja, 'zh-TW']
+      end
+    }
+    after { I18nFactory.config.locales = [] }
+
+    it 'create ja.yml and zh-TW.yml' do
+      expect{ subject }.not_to raise_error
+      expect(locale_dir.children.count).to eq 1
+      expect(locale_dir.join('post').children.count).to eq 2
+      assert_file 'config/locales/post/ja.yml', <<~YAML
+        ja:
+          activerecord:
+            models:
+              post: Post
+            attributes:
+              post:
+                title: Title
+                content: Content
+      YAML
+      assert_file 'config/locales/post/zh-TW.yml', <<~YAML
+        zh-TW:
+          activerecord:
+            models:
+              post: Post
+            attributes:
+              post:
+                title: Title
+                content: Content
+      YAML
+    end
+  end
+
+  context 'if namespaced model given' do
     shared_examples 'works' do
       it 'create en.yml' do
         expect{ subject }.not_to raise_error

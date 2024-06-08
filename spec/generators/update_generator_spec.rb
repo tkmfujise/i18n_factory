@@ -31,6 +31,45 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
       end
     end
 
+
+    context 'if set multiple locales' do
+      before {
+        I18nFactory.configure do |factory|
+          factory.locales = [:ja, 'zh-TW']
+        end
+      }
+      after { I18nFactory.config.locales = [] }
+      let(:model_name) { 'Article' }
+
+      it 'create ja.yml and zh-TW.yml' do
+        expect{ subject }.not_to raise_error
+        expect(locale_dir.children.count).to eq 1
+        expect(locale_dir.join('article').children.count).to eq 2
+        assert_file 'config/locales/article/ja.yml', <<~YAML
+          ja:
+            activerecord:
+              models:
+                article: Article
+              attributes:
+                article:
+                  title: Title
+                  content: Content
+                  user_id: UserId
+        YAML
+        assert_file 'config/locales/article/zh-TW.yml', <<~YAML
+          zh-TW:
+            activerecord:
+              models:
+                article: Article
+              attributes:
+                article:
+                  title: Title
+                  content: Content
+                  user_id: UserId
+        YAML
+      end
+    end
+
     context 'if namespaced model' do
       let(:model_name) { 'Foo::Bar' }
       
