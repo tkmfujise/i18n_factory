@@ -5,7 +5,7 @@
 
 ## Installation
 
-```
+```rb
 gem 'i18n_factory', group: :development
 ```
 
@@ -68,7 +68,7 @@ It will create i18n files as `config/locales/xxx/ja.yml`.
 #### How to set multiple locales
 
 Try to edit `config/environments/development.rb`
-```
+```rb
 Rails.application.configure do
   # ...
   config.after_initialize do
