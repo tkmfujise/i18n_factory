@@ -61,8 +61,9 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
           YAML
         end
       end
+
       
-      context 'has other attributes' do
+      context 'has other attributes simple' do
         let(:existing_yml) {
           <<~YAML
             en:
@@ -92,6 +93,67 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
                     content: Content
                     user_id: UserId
                     user:    User
+          YAML
+        end
+      end
+
+
+      context 'has other attributes complex' do
+        let(:existing_yml) {
+          <<~YAML
+            en:
+              activerecord:
+                models:
+                  article:   ArticleTest
+                attributes:
+                  article:
+                    title: TitleTest
+                    content: Content
+                    user: User
+                  article/comments:
+                    image: Image 
+                errors:
+                  models:
+                    article:
+                      attributes:
+                        title:
+                          taken: should be unique
+              enums:
+                article:
+                  status:
+                    published: Published
+                    private:   Private
+          YAML
+        }
+      
+        it 'update en.yml' do
+          expect{ subject }.not_to raise_error
+          expect(locale_dir.children.count).to eq 1
+          expect(locale_dir.join('article').children.count).to eq 1
+          assert_file 'config/locales/article/en.yml', <<~YAML
+            en:
+              activerecord:
+                models:
+                  article: ArticleTest
+                attributes:
+                  article:
+                    title:   TitleTest
+                    content: Content
+                    user_id: UserId
+                    user:    User
+                  article/comments:
+                    image: Image
+                errors:
+                  models:
+                    article:
+                      attributes:
+                        title:
+                          taken: should be unique
+              enums:
+                article:
+                  status:
+                    published: Published
+                    private:   Private
           YAML
         end
       end
