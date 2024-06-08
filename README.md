@@ -28,7 +28,7 @@ en:
       post: Post  
     attributes:
       post:
-        title: Title
+        title:   Title
         content: Content
 ```
 

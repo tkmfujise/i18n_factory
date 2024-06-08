@@ -22,7 +22,7 @@ RSpec.describe Rails::Generators::ModelGenerator, type: :generator do
               post: Post
             attributes:
               post:
-                title: Title
+                title:   Title
                 content: Content
       YAML
     end
@@ -43,7 +43,7 @@ RSpec.describe Rails::Generators::ModelGenerator, type: :generator do
               post: Post
             attributes:
               post:
-                title: Title
+                title:   Title
                 content: Content
       YAML
     end
@@ -69,7 +69,7 @@ RSpec.describe Rails::Generators::ModelGenerator, type: :generator do
               post: Post
             attributes:
               post:
-                title: Title
+                title:   Title
                 content: Content
       YAML
       assert_file 'config/locales/post/zh-TW.yml', <<~YAML
@@ -79,7 +79,7 @@ RSpec.describe Rails::Generators::ModelGenerator, type: :generator do
               post: Post
             attributes:
               post:
-                title: Title
+                title:   Title
                 content: Content
       YAML
     end

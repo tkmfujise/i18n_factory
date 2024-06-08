@@ -24,7 +24,7 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
                 article: Article
               attributes:
                 article:
-                  title: Title
+                  title:   Title
                   content: Content
                   user_id: UserId
         YAML
@@ -40,36 +40,60 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
           locale_dir.join("article/#{locale}.yml")
         }
       end
-      let(:existing_yml) {
-        <<~YAML
-          en:
-            activerecord:
-              models:
-                article: ArticleTest
-              attributes:
-                article:
-                  title: TitleTest
-                  content: Content
-                  user: User
-        YAML
-      }
+
+      context 'but broken' do
+        let(:existing_yml) { "foo\nbar" }
+
+        it 'create en.yml' do
+          expect{ subject }.not_to raise_error
+          expect(locale_dir.children.count).to eq 1
+          expect(locale_dir.join('article').children.count).to eq 1
+          assert_file 'config/locales/article/en.yml', <<~YAML
+            en:
+              activerecord:
+                models:
+                  article: Article
+                attributes:
+                  article:
+                    title:   Title
+                    content: Content
+                    user_id: UserId
+          YAML
+        end
+      end
       
-      it 'update en.yml' do
-        expect{ subject }.not_to raise_error
-        expect(locale_dir.children.count).to eq 1
-        expect(locale_dir.join('article').children.count).to eq 1
-        assert_file 'config/locales/article/en.yml', <<~YAML
-          en:
-            activerecord:
-              models:
-                article: ArticleTest
-              attributes:
-                article:
-                  title: TitleTest
-                  content: Content
-                  user_id: UserId
-                  user: User
-        YAML
+      context 'has other attributes' do
+        let(:existing_yml) {
+          <<~YAML
+            en:
+              activerecord:
+                models:
+                  article:   ArticleTest
+                attributes:
+                  article:
+                    title: TitleTest
+                    content: Content
+                    user: User
+          YAML
+        }
+      
+        it 'update en.yml' do
+          expect{ subject }.not_to raise_error
+          expect(locale_dir.children.count).to eq 1
+          expect(locale_dir.join('article').children.count).to eq 1
+          assert_file 'config/locales/article/en.yml', <<~YAML
+            en:
+              activerecord:
+                models:
+                  article: ArticleTest
+                attributes:
+                  article:
+                    title:   TitleTest
+                    content: Content
+                    user_id: UserId
+                    user:    User
+          YAML
+        end
       end
     end
   end
@@ -95,7 +119,7 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
               article: Article
             attributes:
               article:
-                title: Title
+                title:   Title
                 content: Content
                 user_id: UserId
       YAML
@@ -106,7 +130,7 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
               article: Article
             attributes:
               article:
-                title: Title
+                title:   Title
                 content: Content
                 user_id: UserId
       YAML
