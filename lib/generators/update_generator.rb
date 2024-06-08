@@ -11,7 +11,7 @@ module I18nFactory
         I18nFactory::Locale.all.each do |locale|
           self.current_locale = locale
           load_yaml_on(locale)
-          template 'i18n.yml.erb', path_for_i18n(locale)
+          template 'i18n.yml.erb', path_for_i18n(locale), force: true
         end
       end
 
