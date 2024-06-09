@@ -127,6 +127,9 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
                   status:
                     published: Published
                     private:   Private
+                  foo:
+                    true: 1
+                    false: 2
           YAML
         }
       
@@ -162,6 +165,9 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
                   status:
                     published: Published
                     private:   Private
+                  foo:
+                    true:  1
+                    false: 2
           YAML
         end
       end

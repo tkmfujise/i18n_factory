@@ -97,7 +97,7 @@ module I18nFactory
 
         def pretty_yml_text(hash, indent = 2)
           arr = []
-          max_length = hash.keys.map(&:length).max 
+          max_length = hash.keys.map{|k| k.to_s.length }.max 
           hash.each do |key, value|
             case value
             when Hash
@@ -115,7 +115,7 @@ module I18nFactory
 
         def str_value(key, str, indent, max_length)
           if str.match(/%{.+}/)
-            "\"#{str}\""
+            "\"#{str.gsub('"', "\\\"")}\""
           elsif str.match(/\R/)
             str.split(/\R/).map{|s|
               ' ' * (indent + 2) + s
