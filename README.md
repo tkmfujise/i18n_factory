@@ -47,6 +47,7 @@ $ bin/rails g i18n_factory:update_all
 > 既存のロケールファイルがある場合はそれを壊さないよう抜けている列のみをマージするように処理していますが、もしかしたらうまく動かない場合があるかもしれません。
 > うまく動かないパターンがあれば、Issue で教えていただければと思います。
 
+## Configuration
 
 **i18n_factory** find your application locale from `I18n.locale`. 
 
