@@ -1,8 +1,5 @@
 # I18nFactory
 
-## TODO
-* [ ] Avoid overwrite, Merge i18n yml
-
 ## Installation
 
 ```rb
@@ -36,7 +33,7 @@ en:
 
 Even if you already created the model, you can generate an i18n file.
 
-Please try to run the next command. It will update or create an i18n file, which got the model columns from the database schema.
+Try to run the next command. It will update or create an i18n file, which got the model columns from the database schema.
 
 ```
 $ bin/rails g i18n_factory:update ModelName
@@ -46,8 +43,10 @@ or
 $ bin/rails g i18n_factory:update_all
 ```
 
+> [!WARNING]
+> 既存のロケールファイルがある場合はそれを壊さないよう抜けている列のみをマージするように処理していますが、もしかしたらうまく動かない場合があるかもしれません。
+> うまく動かないパターンがあれば、Issue で教えていただければと思います。
 
-### How to set locales
 
 **i18n_factory** find your application locale from `I18n.locale`. 
 
@@ -82,6 +81,17 @@ end
 It will create i18n files as 
 * `config/locales/xxx/ja.yml`
 * `config/locales/xxx/zh-TW.yml`
+
+
+#### How to avoid a specific file from update_all
+
+If you defined `I18nFactory.config.ignore_paths`, it will skip loading the files to create locale files when `rails g i18n_factory:update_all`.
+
+```rb
+I18nFactory.configure do |factory|
+  factory.ignore_paths = ['app/models/foo/bar.rb']
+end
+```
 
 
 ## License

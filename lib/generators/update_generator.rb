@@ -107,10 +107,28 @@ module I18nFactory
               ]
             else
               arr << ' ' * indent + \
-                "#{key}:".ljust(max_length + 2) + value.to_s
+                str_value(key, value.to_s, indent, max_length)
             end
           end
           arr.join("\n")
+        end
+
+        def str_value(key, str, indent, max_length)
+          if str.match(/%{.+}/)
+            "\"#{str}\""
+          elsif str.match(/\R/)
+            str.split(/\R/).map{|s|
+              ' ' * (indent + 2) + s
+            }
+          else
+            str.blank? ? '""' : str
+          end.try{|value|
+            if value.kind_of?(Array)
+              "#{key}: |-\n" + value.join("\n")
+            else
+              "#{key}:".ljust(max_length + 2) + value
+            end
+          }
         end
 
         def column_names

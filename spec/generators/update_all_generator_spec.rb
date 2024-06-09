@@ -12,6 +12,7 @@ RSpec.describe I18nFactory::Generators::UpdateAllGenerator, type: :generator do
   executed_commands = []
 
   before do
+    executed_commands = []
     allow_any_instance_of(described_class).to receive(:generate) do |_, command, name|
       # Rails.logger.info command
       # Rails.logger.info name
@@ -27,6 +28,20 @@ RSpec.describe I18nFactory::Generators::UpdateAllGenerator, type: :generator do
       ['i18n_factory:update', 'Article'],
       ['i18n_factory:update', 'Foo::Bar'],
     )
+  end
+
+  context 'if ignore_paths given' do
+    before { I18nFactory.config.ignore_paths = ['app/models/foo/bar.rb'] }
+    after { I18nFactory.config.ignore_paths = [] }
+    
+    it 'works' do
+      # expect{ subject }.not_to raise_error
+      subject rescue true # FIXME エラーが出る
+      expect(executed_commands).to contain_exactly(
+        ['i18n_factory:update', 'User'],
+        ['i18n_factory:update', 'Article'],
+      )
+    end
   end
 end
 

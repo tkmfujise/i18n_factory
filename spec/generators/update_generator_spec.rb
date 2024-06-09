@@ -108,7 +108,11 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
                 attributes:
                   article:
                     title: TitleTest
+                    title_html: "<h1>%{title}</h1>"
                     content: Content
+                    hint: |-
+                      1️⃣ Write something
+                      2️⃣ Publish
                     user: User
                   article/comments:
                     image: Image 
@@ -137,10 +141,14 @@ RSpec.describe I18nFactory::Generators::UpdateGenerator, type: :generator do
                   article: ArticleTest
                 attributes:
                   article:
-                    title:   TitleTest
-                    content: Content
-                    user_id: UserId
-                    user:    User
+                    title:      TitleTest
+                    content:    Content
+                    user_id:    UserId
+                    title_html: "<h1>%{title}</h1>"
+                    hint: |-
+                      1️⃣ Write something
+                      2️⃣ Publish
+                    user:       User
                   article/comments:
                     image: Image
                 errors:

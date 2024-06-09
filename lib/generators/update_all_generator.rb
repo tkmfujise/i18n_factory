@@ -16,9 +16,12 @@ module I18nFactory
 
       private
         def all_model_names
+          ignore_paths = I18nFactory.config.ignore_paths.map{|p| Regexp.new(p) }
           model_names = Dir["#{Rails.root.join('app/models')}/**/*.rb"].map{|path|
+              next if path.match?(/\/concerns\//)
+              next if ignore_paths.any?{|regexp| path.match?(regexp) }
               path.match(/app\/models\/(.*)\.rb/); $1
-            }.map(&:camelize)
+            }.compact.map(&:camelize)
 
           model_names.reject{|model_name|
             model_name == 'ApplicationRecord'
